@@ -2,11 +2,16 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+const defaultPicture = '/images/default_photo.png'
+
 const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -26,6 +31,15 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: defaultPicture
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 
