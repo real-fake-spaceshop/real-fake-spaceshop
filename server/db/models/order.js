@@ -4,7 +4,8 @@ const db = require('../db');
 const Order = db.define('order', {
   products: {
     type: Sequelize.ARRAY,
-    allowNull: false
+    allowNull: false,
+    defaultValue: []
   },
   activeOrder: {
     type: Sequelize.BOOLEAN,
