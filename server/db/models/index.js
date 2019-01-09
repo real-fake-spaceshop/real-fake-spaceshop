@@ -2,8 +2,10 @@ const User = require('./user');
 const Product = require('./product');
 const Order = require('./order');
 
-Order.belongsTo(User, {as: 'shoppingCart'});
-User.hasMany(Order, {as: 'shoppingCart'});
+User.belongsTo(Order, {as: 'shoppingCart'});
+
+User.hasMany(Order, {as: 'owner', constraints: false});
+Order.belongsTo(User, {as: 'owner', constraints: false});
 
 Product.belongsToMany(Order, {through: 'order_products'});
 Order.belongsToMany(Product, {through: 'order_products'});

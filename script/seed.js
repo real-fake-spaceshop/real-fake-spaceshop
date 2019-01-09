@@ -2,21 +2,16 @@
 
 const NUM_USERS = 100;
 const NUM_PRODUCTS = 50;
+const MAX_ORDER_PRODUCTS = 5;
 const NUM_ORDERS = NUM_USERS * 2;
+// const NUM_ORDERS = 1;
 
 const faker = require('faker');
-
 const db = require('../server/db');
 const {User, Product, Order} = require('../server/db/models');
 
-async function seed() {
-	await db.sync({force: true});
-	console.log('db synced!');
-	faker.seed(process.env.RAND_SEED || 123);
-
+function seedUsers() {
 	const usersP = new Array(NUM_USERS);
-	const productsP = new Array(NUM_PRODUCTS);
-	const ordersP = new Array(NUM_ORDERS);
 
 	for (let i = 0; i < NUM_USERS; i++) {
 		const first = faker.name.firstName();
@@ -30,26 +25,66 @@ async function seed() {
 		});
 	}
 
+	return Promise.all(usersP);
+}
+
+function seedProducts() {
+	const productsP = new Array(NUM_PRODUCTS);
+
 	for (let i = 0; i < NUM_PRODUCTS; i++) {
 		productsP[i] = Product.create({
 			name: faker.commerce.product(),
-			price: faker.random.number({min: 1, max: 1e9}),
+			price: faker.random.number({min: 1, Usermax: 1e9}),
 			description: faker.lorem.paragraph(),
 			imageUrl: faker.image.transport()
 		});
 	}
 
-	const [users, products] = [
-		await Promise.all(usersP),
-		await Promise.all(productsP)
-	];
+	return Promise.all(productsP);
+}
 
-	// const orders = await ;
+async function seed() {
+	console.time(`seeded successfully`);
+	await db.sync({force: true});
+	console.log('db synced!');
+	faker.seed(process.env.RAND_SEED || 123);
+
+	const usersP = seedUsers();
+	const productsP = seedProducts();
+
+	const [users, products] = await Promise.all([usersP, productsP]);
 
 	console.log(`seeded ${users.length} users`);
 	console.log(`seeded ${products.length} products`);
-	// console.log(`seeded ${orders.length} orders`);
-	console.log(`seeded successfully`);
+
+	const orders = await Order.bulkCreate(
+		new Array(NUM_ORDERS).fill({submitted: false}),
+		{returning: true}
+	);
+
+	for (let i = 0; i < NUM_ORDERS; i++) {
+		const order = orders[i];
+		const owner = users[faker.random.number(users.length - 1)];
+		if (await Order.findOne({where: {ownerId: owner.id}})) {
+			order.submitted = true;
+		}
+		const orderProducts = new Array(
+			faker.random.number(MAX_ORDER_PRODUCTS)
+		).fill(0);
+		for (let j = 0; j < orderProducts.length; j++) {
+			let choice;
+			do {
+				choice = products[faker.random.number(products.length - 1)];
+			} while (
+				orderProducts.findIndex(elem => elem && elem.id === choice.id) !== -1
+			);
+			orderProducts[j] = choice;
+		}
+		await order.addProducts(orderProducts, {through: 'order_products'});
+	}
+
+	console.log(`seeded ${orders.length} orders`);
+	console.timeEnd(`seeded successfully`);
 }
 
 // We've separated the `seed` function from the `runSeed` function.
