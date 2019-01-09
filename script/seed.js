@@ -68,6 +68,9 @@ async function seed() {
 		if (await Order.findOne({where: {ownerId: owner.id}})) {
 			order.submitted = true;
 		}
+		order.ownerId = owner.id;
+		await order.save();
+
 		const orderProducts = new Array(
 			faker.random.number(MAX_ORDER_PRODUCTS)
 		).fill(0);
