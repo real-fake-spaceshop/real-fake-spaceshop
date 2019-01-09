@@ -21,7 +21,10 @@ describe('Product model', () => {
 		it('adds the product to the database successfully', async () => {
 			const arr = await Product.findAll();
 			expect(arr[0].name).to.be.equal('Arwing');
-			expect(arr[0]);
+			expect(arr[0].price).to.be.equal(2000.5);
+			expect(arr[0].description).to.be.equal(
+				'This ship is slightly used. Sorry about it :('
+			);
 		});
 	});
 });
