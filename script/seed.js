@@ -4,9 +4,9 @@ const NUM_USERS = 100;
 const NUM_PRODUCTS = 50;
 const MAX_ORDER_PRODUCTS = 5;
 const NUM_ORDERS = NUM_USERS * 2;
-// const NUM_ORDERS = 1;
 
 const faker = require('faker');
+
 const db = require('../server/db');
 const {User, Product, Order} = require('../server/db/models');
 
@@ -95,6 +95,7 @@ async function runSeed() {
 	try {
 		await seed();
 	} catch (err) {
+		console.error('Failed to seed database');
 		console.error(err);
 		process.exitCode = 1;
 	} finally {
