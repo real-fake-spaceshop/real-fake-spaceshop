@@ -67,6 +67,8 @@ async function seed() {
 		const owner = users[faker.random.number(users.length - 1)];
 		if (await Order.findOne({where: {ownerId: owner.id}})) {
 			order.submitted = true;
+		} else {
+			await owner.setShoppingCart(order);
 		}
 		order.ownerId = owner.id;
 		await order.save();
