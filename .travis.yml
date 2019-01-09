@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - node # uses most recent stable node version
+cache: npm # cache installed npm packages for faster build times.
 services:
   - postgresql # starts up postgres
 addons:
