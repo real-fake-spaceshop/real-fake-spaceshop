@@ -6,7 +6,7 @@ const {expect} = require('chai');
 const {Order, User} = require('../server/db/models');
 const seed = require('./seed');
 
-describe.only('seed script', () => {
+describe('seed script', () => {
 	it('completes successfully', seed);
 
 	describe('seeded data', function() {
