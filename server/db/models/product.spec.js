@@ -14,7 +14,8 @@ describe('Product model', () => {
 			spaceship = await Product.create({
 				name: 'Arwing',
 				price: 2000.5,
-				description: 'This ship is slightly used. Sorry about it :('
+				description: 'This ship is slightly used. Sorry about it :(',
+				imageUrl: 'http://lorempixel.com/600/400/transport'
 			});
 		});
 

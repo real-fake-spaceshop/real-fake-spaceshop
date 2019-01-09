@@ -1,4 +1,5 @@
 const {expect} = require('chai');
+
 const db = require('../index');
 const Order = require('./order');
 const Product = require('./product');
@@ -16,21 +17,21 @@ describe('Order model', () => {
 
 		beforeEach(async () => {
 			order = await Order.create({
-				activeOrder: true
+				submitted: true
 			});
 		});
 
 		it('adds the order to the database successfully', async () => {
 			const arr = await Order.findAll();
-
-			expect(arr[0].activeOrder).to.be.equal(true);
+			expect(arr[0].submitted).to.be.equal(true);
 		});
 
 		it('the order has the proper table containing its products', async () => {
 			spaceship = await Product.create({
 				name: 'Arwing',
 				price: 2000.5,
-				description: 'This ship is slightly used. Sorry about it :('
+				description: 'This ship is slightly used. Sorry about it :(',
+				imageUrl: 'http://lorempixel.com/600/400/transport'
 			});
 			order.addProducts(spaceship);
 
@@ -50,15 +51,15 @@ describe('Order model', () => {
 
 			await Order.update(
 				{
-					userId: cody.id
+					ownerId: cody.id
 				},
 				{
-					where: {activeOrder: true}
+					where: {submitted: true}
 				}
 			);
 			const arr = await Order.findAll();
 
-			expect(arr[0].userId).to.be.equal(cody.id);
+			expect(arr[0].ownerId).to.be.equal(cody.id);
 		});
 	});
 });
