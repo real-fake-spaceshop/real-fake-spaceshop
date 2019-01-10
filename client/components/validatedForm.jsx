@@ -11,6 +11,13 @@ export default class ValidatedForm extends React.PureComponent {
 		super(props);
 
 		this.state = {};
+		for (const input of props.inputs) {
+			if (input.defaultValue !== undefined)
+				this.state[input.name] = input.defaultValue;
+
+			if (props.commonProps)
+				input.props = {...props.commonProps, ...input.props};
+		}
 	}
 
 	handleSubmit = evt => {
@@ -37,14 +44,7 @@ ValidatedForm.propTypes = {
 	/** Callback function to call when the user submits the form */
 	submit: PropTypes.func.isRequired,
 	/** Array respresenting all inputs to be displayed and their datatypes and options */
-	inputs: PropTypes.arrayOf(
-		PropTypes.shape({
-			/** name of input */
-			name: PropTypes.string,
-			/** input data type */
-			type: PropTypes.string,
-			/** extra props to apply to input component */
-			options: PropTypes.object
-		}).isRequired
-	)
+	inputs: ValidatedFormPresentational.propTypes.inputs,
+	/** an object containing props to be applied to all inputs */
+	commonProps: PropTypes.object
 };
