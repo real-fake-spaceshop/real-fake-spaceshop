@@ -1,9 +1,11 @@
+/* eslint-disable no-loop-func */
 'use strict';
 
 const NUM_USERS = 100;
 const NUM_PRODUCTS = 50;
 const MAX_ORDER_PRODUCTS = 5;
 const NUM_ORDERS = NUM_USERS * 2;
+const MAX_ORDER_QUANTITY = 10;
 
 const faker = require('faker');
 
@@ -43,24 +45,12 @@ function seedProducts() {
 	return Promise.all(productsP);
 }
 
-async function seed() {
-	console.time(`seeded successfully`);
-	await db.sync({force: true});
-	console.log('db synced!');
-	faker.seed(process.env.RAND_SEED || 123);
-
-	const usersP = seedUsers();
-	const productsP = seedProducts();
-
-	const [users, products] = await Promise.all([usersP, productsP]);
-
-	console.log(`seeded ${users.length} users`);
-	console.log(`seeded ${products.length} products`);
-
+async function seedOrders(users, products) {
 	const orders = await Order.bulkCreate(
 		new Array(NUM_ORDERS).fill({submitted: false}),
 		{returning: true}
 	);
+	const lineItemsP = [];
 
 	for (let i = 0; i < NUM_ORDERS; i++) {
 		const order = orders[i];
@@ -85,8 +75,35 @@ async function seed() {
 			);
 			orderProducts[j] = choice;
 		}
-		await order.addProducts(orderProducts, {through: 'order_products'});
+		lineItemsP.push(
+			...orderProducts.map(product =>
+				order.addProducts(product, {
+					through: {quantity: faker.random.number(MAX_ORDER_QUANTITY - 1) + 1}
+				})
+			)
+		);
 	}
+
+	await Promise.all(lineItemsP);
+
+	return orders;
+}
+
+async function seed() {
+	console.time(`seeded successfully`);
+	await db.sync({force: true});
+	console.log('db synced!');
+	faker.seed(process.env.RAND_SEED || 123);
+
+	const usersP = seedUsers();
+	const productsP = seedProducts();
+
+	const [users, products] = await Promise.all([usersP, productsP]);
+
+	console.log(`seeded ${users.length} users`);
+	console.log(`seeded ${products.length} products`);
+
+	const orders = await seedOrders(users, products);
 
 	console.log(`seeded ${orders.length} orders`);
 	console.timeEnd(`seeded successfully`);
