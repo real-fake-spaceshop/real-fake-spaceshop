@@ -18,6 +18,7 @@ describe('Product model', () => {
 			});
 		});
 
+		// OB/JL: this tests sequelize library, instead maybe reframe as "validation" testing
 		it('adds the product to the database successfully', async () => {
 			const arr = await Product.findAll();
 			expect(arr[0].name).to.be.equal('Arwing');

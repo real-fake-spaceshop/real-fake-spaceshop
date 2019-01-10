@@ -7,6 +7,7 @@ export const LandingPage = () => {
 				<h1>Real Fake Spaceships!</h1>
 			</div>
 			<div>
+				{/* OB/JL: beware relative URLs (the leading dot) */}
 				<img id="splash-logo" src="./images/default_ship_transparent.png" />
 			</div>
 			<div>

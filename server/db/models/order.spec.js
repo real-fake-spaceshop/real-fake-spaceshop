@@ -16,6 +16,7 @@ describe('Order model', () => {
 
 		beforeEach(async () => {
 			order = await Order.create({
+				// OB/JL: bug here
 				activeOrder: true
 			});
 		});
@@ -32,6 +33,7 @@ describe('Order model', () => {
 				price: 2000.5,
 				description: 'This ship is slightly used. Sorry about it :('
 			});
+			// OB/JL: the method below is asynchronous, remember to await it
 			order.addProducts(spaceship);
 
 			const arr = await Order.findAll();
