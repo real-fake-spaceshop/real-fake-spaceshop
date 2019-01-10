@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import MaterialUIForm from 'react-material-ui-form';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core';
 import {withStyles, createStyles} from '@material-ui/styles';
+import {signup} from '../store';
 
 const styles = createStyles({
 	container: {
@@ -17,7 +19,9 @@ const styles = createStyles({
 });
 
 class SignupPage extends React.Component {
-	submit = (values, pristineValues) => {};
+	submit = values => {
+		this.props.sendSignup(values);
+	};
 
 	render() {
 		return (
@@ -75,4 +79,12 @@ class SignupPage extends React.Component {
 	}
 }
 
-export default withStyles(styles)(SignupPage);
+const mapDispatchToProps = dispatch => ({
+	sendSignup: (email, password) => {
+		dispatch(signup(email, password, 'signup'));
+	}
+});
+
+export default withStyles(styles)(
+	connect(null, mapDispatchToProps)(SignupPage)
+);
