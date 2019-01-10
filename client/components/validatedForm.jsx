@@ -36,10 +36,15 @@ export default class ValidatedForm extends React.PureComponent {
 ValidatedForm.propTypes = {
 	/** Callback function to call when the user submits the form */
 	submit: PropTypes.func.isRequired,
+	/** Array respresenting all inputs to be displayed and their datatypes and options */
 	inputs: PropTypes.arrayOf(
 		PropTypes.shape({
+			/** name of input */
 			name: PropTypes.string,
-			type: PropTypes.string
-		})
+			/** input data type */
+			type: PropTypes.string,
+			/** extra props to apply to input component */
+			options: PropTypes.object
+		}).isRequired
 	)
 };
