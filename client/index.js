@@ -6,6 +6,7 @@ import history from './history';
 import store from './store';
 import App from './app';
 import purple from '@material-ui/core/colors/purple';
+import yellow from '@material-ui/core/colors/yellow';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 //this creates the theme used for the theme provider
@@ -13,6 +14,9 @@ const theme = createMuiTheme({
 	palette: {
 		primary: {
 			main: purple[700]
+		},
+		secondary: {
+			main: yellow[500]
 		}
 	}
 });
