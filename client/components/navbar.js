@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {logout} from '../store';
+import Button from '@material-ui/core/Button';
 
 const Navbar = ({handleClick, isLoggedIn}) => (
 	<div>
@@ -18,13 +19,29 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 			) : (
 				<div>
 					{/* The navbar will show these links before you log in */}
-					<Link to="/catalogue">Product Catalogue</Link>
+					<Link to="/catalogue">
+						<Button variant="contained" color="primary">
+							Product Catalogue
+						</Button>
+					</Link>
 					<div>
 						<img id="nav-rocket" src="/images/flat_rocket.svg" />
 					</div>
-					<Link to="/login">Login</Link>
-					<Link to="/signup">Sign Up</Link>
-					<Link to="/cart">Cart</Link>
+					<Link to="/login">
+						<Button variant="contained" color="primary">
+							Login
+						</Button>
+					</Link>
+					<Link to="/signup">
+						<Button variant="contained" color="primary">
+							Sign Up
+						</Button>
+					</Link>
+					<Link to="/cart">
+						<Button variant="contained" color="primary">
+							Cart
+						</Button>
+					</Link>
 				</div>
 			)}
 		</nav>
