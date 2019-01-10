@@ -7,8 +7,6 @@ const {Order, User} = require('../server/db/models');
 const seed = require('./seed');
 
 describe('seed script', () => {
-	it('completes successfully', seed);
-
 	describe('seeded data', function() {
 		this.timeout(5000);
 
