@@ -18,10 +18,17 @@ function seedUsers() {
 	for (let i = 0; i < NUM_USERS; i++) {
 		const first = faker.name.firstName();
 		const last = faker.name.lastName();
+		const password = faker.internet.password(8, true);
+		const email = faker.internet.email(
+			first,
+			last,
+			faker.internet.domainName()
+		);
+		// console.log(`${first} ${last} <${email}>: ${password}`);
 		usersP[i] = User.create({
 			name: `${first} ${last}`,
-			password: faker.internet.password(8, true),
-			email: faker.internet.email(first, last, faker.internet.domainName()),
+			password,
+			email,
 			imageUrl: faker.image.people(),
 			address: faker.address.streetAddress()
 		});
