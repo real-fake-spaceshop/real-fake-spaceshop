@@ -141,7 +141,18 @@ describe.only('Order API routes', () => {
 					});
 			});
 
-			it('Updates the product quantity if product is already on the order');
+			it('Updates the product quantity if product is already on the order', done => {
+				server
+					.put(`/api/orders/${order.id}/${products[0].id}?quantity=3`)
+					.expect(200)
+					.end((err, res) => {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						expect(res.body.products[0].order_line_item.quantity).to.equal(3);
+						done();
+					});
+			});
 		});
 
 		describe('DELETE /api/orders/:orderId/:productId', () => {

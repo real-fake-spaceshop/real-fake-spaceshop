@@ -48,7 +48,7 @@ router.put('/:orderId/:productId', async (req, res, next) => {
 			return next();
 		}
 
-		if (order.products.find(p => p.id === req.params.productId)) {
+		if (order.products.find(p => p.id === Number(req.params.productId))) {
 			// need to update
 			if (!req.query.quantity) {
 				return res.status(400).json({error: 'quantity must be specified'});
