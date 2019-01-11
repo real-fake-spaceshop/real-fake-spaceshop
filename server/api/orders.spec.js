@@ -28,7 +28,6 @@ describe.only('Order API routes', () => {
 	let order, user, products;
 
 	beforeEach('clear database', () => {
-		console.log('clearing database');
 		return db.sync({force: true});
 	});
 
@@ -109,7 +108,7 @@ describe.only('Order API routes', () => {
 			});
 		});
 
-		describe.only('PUT /api/orders/:orderId/:productId', () => {
+		describe('PUT /api/orders/:orderId/:productId', () => {
 			let product;
 			beforeEach(async () => {
 				product = await Product.create({
@@ -151,6 +150,26 @@ describe.only('Order API routes', () => {
 						}
 						expect(res.body.products[0].order_line_item.quantity).to.equal(3);
 						done();
+					});
+			});
+		});
+
+		describe('DELETE /api/orders/:orderId', () => {
+			it('removes the specified order from the database', done => {
+				const orderId = order.id;
+				server
+					.delete(`/api/orders/${orderId}`)
+					.expect(204)
+					.end((err, res) => {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						Order.findById(orderId)
+							.then(foundOrder => {
+								expect(foundOrder).to.not.exist;
+								done();
+							})
+							.catch(error => done(error));
 					});
 			});
 		});
