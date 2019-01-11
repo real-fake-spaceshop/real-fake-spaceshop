@@ -54,56 +54,6 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
 			</Toolbar>
 		</AppBar>
 	</div>
-
-	// <div>
-	// 	<nav>
-	// 		{isLoggedIn ? (
-	// 			<div>
-	// 				{/* The navbar will show these links after you log in */}
-	// 				<Link to="/home">Home</Link>
-	// 				<a href="#" onClick={handleClick}>
-	// 					Logout
-	// 				</a>
-	// 			</div>
-	// 		) : (
-	// 				<Grid container spacing={16}>
-	// 					{/* The navbar will show these links before you log in */}
-	// 					<Grid item xs={12}>
-	// 						<Link to="/catalogue">
-	// 							<Button variant="contained" color="primary">
-	// 								Product Catalogue
-	// 					</Button>
-	// 						</Link>
-	// 					</Grid>
-	// 					<Grid item xs={12}>
-	// 						<img id="nav-rocket" src="/images/flat_rocket.svg" />
-	// 					</Grid>
-	// 					<Grid item xs={12}>
-	// 						<Link to="/login">
-	// 							<Button variant="contained" color="primary">
-	// 								Login
-	// 					</Button>
-	// 						</Link>
-	// 					</Grid>
-	// 					<Grid item xs={12}>
-	// 						<Link to="/signup">
-	// 							<Button variant="contained" color="primary">
-	// 								Sign Up
-	// 					</Button>
-	// 						</Link>
-	// 					</Grid>
-	// 					<Grid item xs={12}>
-	// 						<Link to="/cart">
-	// 							<Button variant="contained" color="primary">
-	// 								Cart
-	// 					</Button>
-	// 						</Link>
-	// 					</Grid>
-	// 				</Grid>
-	// 			)}
-	// 	</nav>
-	// 	<hr />
-	// </div>
 );
 
 /**
