@@ -2,7 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Login, SignupPage, UserHome, LandingPage, AllProducts} from './components';
+import {
+	Login,
+	SignupPage,
+	UserHome,
+	LandingPage,
+	AllProducts,
+	SingleProduct
+} from './components';
 
 import {me} from './store';
 import ShoppingCart from './components/shopping-cart';
@@ -23,16 +30,18 @@ class Routes extends Component {
 				{/* Routes placed here are available to all visitors */}
 				<Route path="/login" component={Login} />
 				<Route path="/signup" component={SignupPage} />
+				<Route path="/catalogue/:id" component={SingleProduct} />
 				<Route path="/catalogue" component={AllProducts} />
 				{isLoggedIn && (
 					<Switch>
 						{/* Routes placed here are only available after logging in */}
 						<Route path="/home" component={UserHome} />
 						<Route path="/cart" component={ShoppingCart} />
+						<Route path="/" component={LandingPage} />
 					</Switch>
 				)}
 				{/* Displays our Landing page as a fallback */}
-				<Route component={LandingPage} />
+				<Route path="/" component={LandingPage} />
 			</Switch>
 		);
 	}
