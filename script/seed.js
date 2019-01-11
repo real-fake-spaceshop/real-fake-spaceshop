@@ -84,7 +84,7 @@ async function seedOrders(users, products) {
 		}
 		lineItemsP.push(
 			...orderProducts.map(product =>
-				order.addProducts(product, {
+				order.addProduct(product, {
 					through: {quantity: faker.random.number(MAX_ORDER_QUANTITY - 1) + 1}
 				})
 			)
