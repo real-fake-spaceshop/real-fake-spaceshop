@@ -6,5 +6,6 @@
 export {default as Navbar} from './navbar';
 export {default as UserHome} from './user-home';
 export {LandingPage} from './landing-page';
-export {Login, Signp} from './auth-form';
-export {default as SignupPage} from './signup-page';
+export {Login, Signup} from './auth-form';
+export {default as AllProducts} from './all-products';
+

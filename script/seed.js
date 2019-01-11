@@ -45,7 +45,7 @@ function seedProducts() {
 			name: faker.commerce.product(),
 			price: faker.random.number({min: 1, Usermax: 1e9}),
 			description: faker.lorem.paragraph(),
-			imageUrl: faker.image.transport()
+			imageUrl: faker.image.transport() + '?' + Math.random() * 100
 		});
 	}
 
