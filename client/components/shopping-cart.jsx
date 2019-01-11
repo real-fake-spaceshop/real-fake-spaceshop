@@ -9,32 +9,45 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
-export const ShoppingCart = ({products}) => {
+export const ShoppingCart = ({cart}) => {
+	const products = cart.products;
 	return (
 		<div>
 			<Typography variant="h4">Shopping Cart</Typography>
 			<List>
-				{products.map(product => (
-					<ListItem key={product.id}>
-						<ListItemAvatar>
-							<Avatar src={product.imageUrl} />
-						</ListItemAvatar>
-						<ListItemText primary={product.name} />
-						<ListItemSecondaryAction>
-							<IconButton aria-label="delete">
-								<DeleteIcon />
-							</IconButton>
-						</ListItemSecondaryAction>
-					</ListItem>
-				))}
+				{Array.isArray(products) &&
+					products.map(product => (
+						<ListItem key={product.id}>
+							<ListItemAvatar>
+								<Avatar src={product.imageUrl} />
+							</ListItemAvatar>
+							<ListItemText
+								primary={product.name}
+								secondary={`Quantity: ${product.order_line_item.quantity}`}
+							/>
+							<ListItemSecondaryAction>
+								<IconButton aria-label="add">
+									<AddIcon />
+								</IconButton>
+								<IconButton aria-label="subtract">
+									<RemoveIcon />
+								</IconButton>
+								<IconButton aria-label="delete">
+									<DeleteIcon />
+								</IconButton>
+							</ListItemSecondaryAction>
+						</ListItem>
+					))}
 			</List>
 		</div>
 	);
 };
 
 const mapStateToProps = state => ({
-	products: state.user.shoppingCart
+	cart: state.user.shoppingCart
 });
 
 export default connect(mapStateToProps)(ShoppingCart);
