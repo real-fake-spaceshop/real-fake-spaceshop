@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const {expect} = require('chai');
 const request = require('supertest');
 const db = require('../db');
@@ -33,7 +34,7 @@ describe('Product routes', () => {
 				});
 		});
 
-		it('adds a new product to database with a POST "/api/products" ', () => {
+		it('adds a new product to database with a POST "/api/products" ', done => {
 			const newProduct = {
 				name: 'Tie-Fighter',
 				price: 100000000,
@@ -48,10 +49,19 @@ describe('Product routes', () => {
 					if (err || !res.ok) {
 						console.error(err);
 					} else {
+						// verify response
 						expect(res.statusCode).to.equal(200);
 						expect(res.body).to.be.an('object');
 						expect(res.body.name).to.equal('Tie-Fighter');
 						expect(res.body.id).to.equal(2);
+
+						// verify database got updated
+						Product.findOne({where: {name: 'Tie-Fighter'}})
+							.then(data => {
+								expect(data).to.exist;
+								done();
+							})
+							.catch(err => done(err));
 					}
 				});
 		});
