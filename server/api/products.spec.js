@@ -61,7 +61,7 @@ describe('Product routes', () => {
 								expect(data).to.exist;
 								done();
 							})
-							.catch(err => done(err));
+							.catch(error => done(error));
 					}
 				});
 		});
