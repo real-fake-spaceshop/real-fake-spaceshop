@@ -37,10 +37,11 @@ class Routes extends Component {
 						{/* Routes placed here are only available after logging in */}
 						<Route path="/home" component={UserHome} />
 						<Route path="/cart" component={ShoppingCart} />
+						<Route path="/" component={LandingPage} />
 					</Switch>
 				)}
 				{/* Displays our Landing page as a fallback */}
-				<Route component={LandingPage} />
+				<Route path="/" component={LandingPage} />
 			</Switch>
 		);
 	}
