@@ -5,13 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import user from './user';
 import singleProduct from './singleProduct';
 import allProducts from './allProducts';
-import errors from './errors';
+import snacks from './snacks';
 
 const reducer = combineReducers({
 	user: user,
 	singleProduct: singleProduct,
 	allProducts: allProducts,
-	errors: errors
+	snacks: snacks
 });
 const middleware = composeWithDevTools(
 	applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -22,4 +22,4 @@ export default store;
 export * from './user';
 export * from './singleProduct';
 export * from './allProducts';
-export * from './errors';
+export * from './snacks';
