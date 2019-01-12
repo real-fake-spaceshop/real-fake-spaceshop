@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import history from './history';
-import store, {enqueueSnack} from './store';
+import store from './store';
 import App from './app';
 import purple from '@material-ui/core/colors/purple';
 import yellow from '@material-ui/core/colors/yellow';

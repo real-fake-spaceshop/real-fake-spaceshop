@@ -15,7 +15,9 @@ class Notifier extends React.Component {
 		const {snacks = []} = this.props;
 		for (const snack of snacks) {
 			// skip already displayed snakcs
-			if (this.displayed.includes(snack.key)) continue;
+			if (this.displayed.includes(snack.key)) {
+				continue;
+			}
 
 			this.props.enqueueSnackbar(snack.message, snack.options);
 			this.storeDisplayed(snack.key);
@@ -27,7 +29,7 @@ class Notifier extends React.Component {
 		const {snacks: currSnacks} = this.props;
 		let notExists = false;
 		for (const snack of newSnacks) {
-			if (currSnacks.find(s => s.key === snack.key) === null) {
+			if (currSnacks.find(s => s.key === snack.key) === undefined) {
 				notExists = true;
 				break;
 			}

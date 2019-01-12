@@ -26,6 +26,10 @@ export const dismissSnack = key => ({
 	key
 });
 
+export const enqueueError = message => {
+	return enqueueSnack({message, options: {variant: 'error'}});
+};
+
 /**
  * REDUCER
  */
