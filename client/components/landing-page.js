@@ -5,25 +5,40 @@ import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
-export const LandingPage = () => {
-	return (
-		<div>
-			<div>
-				<h1>Real Fake Spaceships!</h1>
-			</div>
-			<div>
-				<img id="splash-logo" src="/images/default_ship_transparent.png" />
-			</div>
-			<div>
-				<button>Login</button>
-			</div>
-			<div>
-				<button>Sign Up</button>
-			</div>
-			<div>
-				<button>Product Catalogue</button>
-			</div>
-		</div>
-	);
+const styles = {
+	logo: {
+		height: 500,
+		width: 'auto'
+	}
 };
+class LandingPage extends React.Component {
+	render() {
+		const {classes} = this.props;
+		return (
+			<div>
+				<Card>
+					<CardHeader title="Real Fake Spaceships!" />
+					<CardContent>
+						<img
+							src="/images/default_ship_transparent.png"
+							className={classes.logo}
+						/>
+					</CardContent>
+					<Link to="/login">
+						<Button>Login</Button>
+					</Link>
+					<Link to="/signup">
+						<Button>Sign Up</Button>
+					</Link>
+					<Link to="/catalogue">
+						<Button>Available Ships</Button>
+					</Link>
+				</Card>
+			</div>
+		);
+	}
+}
+
+export default withStyles(styles)(LandingPage);
