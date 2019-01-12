@@ -89,4 +89,17 @@ router.delete('/:orderId', async (req, res, next) => {
 	}
 });
 
+router.delete('/:orderId/:productId', async (req, res, next) => {
+	if (!req.user) return next();
+	try {
+		const order = await Order.findById(req.params.orderId);
+		if (req.user.id !== order.ownerId) return res.sendStatus(401);
+		const numDeleted = await OrderLineItem.destroy({where: req.params});
+		if (numDeleted) res.sendStatus(204);
+		else next();
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = router;

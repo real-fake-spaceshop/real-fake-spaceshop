@@ -24,7 +24,7 @@ const productsData = [
 	},
 	{name: 'BFR', price: '1000', imageUrl: '', description: 'none'}
 ];
-describe.only('Order API routes', () => {
+describe('Order API routes', () => {
 	let order, user, products;
 
 	beforeEach('clear database', () => {
@@ -158,7 +158,7 @@ describe.only('Order API routes', () => {
 			it('removes the specified order from the database', done => {
 				const orderId = order.id;
 				server
-					.delete(`/api/orders/${orderId}`)
+					.del(`/api/orders/${orderId}`)
 					.expect(204)
 					.end((err, res) => {
 						if (err || !res.ok) {
@@ -175,7 +175,23 @@ describe.only('Order API routes', () => {
 		});
 
 		describe('DELETE /api/orders/:orderId/:productId', () => {
-			it('removes specified product from the order');
+			it('removes specified product from the order', done => {
+				server
+					.del(`/api/orders/${order.id}/${products[0].id}`)
+					.expect(204)
+					.end(function(err, res) {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						order
+							.hasProduct(products[0])
+							.then(exists => {
+								expect(exists).to.be.false;
+								done();
+							})
+							.catch(error => done(error));
+					});
+			});
 		});
 	});
 
