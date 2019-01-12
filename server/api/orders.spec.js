@@ -24,11 +24,10 @@ const productsData = [
 	},
 	{name: 'BFR', price: '1000', imageUrl: '', description: 'none'}
 ];
-describe.only('Order API routes', () => {
+describe('Order API routes', () => {
 	let order, user, products;
 
 	beforeEach('clear database', () => {
-		console.log('clearing database');
 		return db.sync({force: true});
 	});
 
@@ -109,7 +108,7 @@ describe.only('Order API routes', () => {
 			});
 		});
 
-		describe.only('PUT /api/orders/:orderId/:productId', () => {
+		describe('PUT /api/orders/:orderId/:productId', () => {
 			let product;
 			beforeEach(async () => {
 				product = await Product.create({
@@ -141,11 +140,58 @@ describe.only('Order API routes', () => {
 					});
 			});
 
-			it('Updates the product quantity if product is already on the order');
+			it('Updates the product quantity if product is already on the order', done => {
+				server
+					.put(`/api/orders/${order.id}/${products[0].id}?quantity=3`)
+					.expect(200)
+					.end((err, res) => {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						expect(res.body.products[0].order_line_item.quantity).to.equal(3);
+						done();
+					});
+			});
+		});
+
+		describe('DELETE /api/orders/:orderId', () => {
+			it('removes the specified order from the database', done => {
+				const orderId = order.id;
+				server
+					.del(`/api/orders/${orderId}`)
+					.expect(204)
+					.end((err, res) => {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						Order.findById(orderId)
+							.then(foundOrder => {
+								expect(foundOrder).to.not.exist;
+								done();
+							})
+							.catch(error => done(error));
+					});
+			});
 		});
 
 		describe('DELETE /api/orders/:orderId/:productId', () => {
-			it('removes specified product from the order');
+			it('removes specified product from the order', done => {
+				server
+					.del(`/api/orders/${order.id}/${products[0].id}`)
+					.expect(204)
+					.end(function(err, res) {
+						if (err || !res.ok) {
+							return done(err);
+						}
+						order
+							.hasProduct(products[0])
+							.then(exists => {
+								expect(exists).to.be.false;
+								done();
+							})
+							.catch(error => done(error));
+					});
+			});
 		});
 	});
 
