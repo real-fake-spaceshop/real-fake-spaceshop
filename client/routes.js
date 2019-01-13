@@ -32,16 +32,13 @@ class Routes extends Component {
 				<Route path="/signup" component={SignupPage} />
 				<Route path="/catalogue/:id" component={SingleProduct} />
 				<Route path="/catalogue" component={AllProducts} />
-				{isLoggedIn && (
-					<Switch>
-						{/* Routes placed here are only available after logging in */}
-						<Route path="/home" component={UserHome} />
-						<Route path="/cart" component={ShoppingCart} />
-						<Route path="/" component={LandingPage} />
-					</Switch>
-				)}
+				{isLoggedIn && [
+					/* Routes placed here are only available after logging in */
+					<Route path="/home" component={UserHome} key="home" />,
+					<Route path="/cart" component={ShoppingCart} key="cart" />
+				]}
 				{/* Displays our Landing page as a fallback */}
-				<Route path="/" component={LandingPage} />
+				<Route path="/" render={props => <LandingPage {...props} />} />
 			</Switch>
 		);
 	}
