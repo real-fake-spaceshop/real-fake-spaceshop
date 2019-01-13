@@ -1,3 +1,7 @@
+import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 /**
  * ACTION TYPES
  */
@@ -27,7 +31,17 @@ export const dismissSnack = key => ({
 });
 
 export const enqueueError = message => {
-	return enqueueSnack({message, options: {variant: 'error'}});
+	return enqueueSnack({
+		message,
+		options: {
+			variant: 'error',
+			action: [
+				<IconButton key="close" aria-label="dismiss" color="inherit">
+					<CloseIcon />
+				</IconButton>
+			]
+		}
+	});
 };
 
 /**
