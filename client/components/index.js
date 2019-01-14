@@ -10,3 +10,4 @@ export {default as LoginPage} from './login-page';
 export {default as SignupPage} from './signup-page';
 export {default as AllProducts} from './all-products';
 export {default as SingleProduct} from './single-product';
+export {default as ShoppingCart} from './shopping-cart';

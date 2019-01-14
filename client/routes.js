@@ -8,11 +8,11 @@ import {
 	LandingPage,
 	AllProducts,
 	SingleProduct,
-	LoginPage
+	LoginPage,
+	ShoppingCart
 } from './components';
 
 import {me} from './store';
-import ShoppingCart from './components/shopping-cart';
 
 /**
  * COMPONENT
@@ -24,13 +24,6 @@ class Routes extends Component {
 
 	render() {
 		const {isLoggedIn} = this.props;
-
-		console.log('LoginPage', LoginPage);
-		console.log('SignupPage', SignupPage);
-		console.log('SingleProduct', SingleProduct);
-		console.log('AllProducts', AllProducts);
-		console.log('ShoppingCart', ShoppingCart);
-		console.log('UserHome', UserHome);
 
 		return (
 			<Switch>
