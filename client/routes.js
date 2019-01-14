@@ -28,8 +28,7 @@ class Routes extends Component {
 		return (
 			<Switch>
 				{/* Routes placed here are available to all visitors */}
-				<Route path="/login" component={Login} />
-				<Route path="/signup" component={SignupPage} />
+
 				<Route path="/catalogue/:id" component={SingleProduct} />
 				<Route path="/catalogue" component={AllProducts} />
 				{isLoggedIn && (
@@ -40,6 +39,10 @@ class Routes extends Component {
 						<Route path="/" component={LandingPage} />
 					</Switch>
 				)}
+				{/* Routes place here are only availible to logged out users */}
+				<Route path="/login" component={Login} />
+				<Route path="/signup" component={SignupPage} />
+
 				{/* Displays our Landing page as a fallback */}
 				<Route path="/" component={LandingPage} />
 			</Switch>

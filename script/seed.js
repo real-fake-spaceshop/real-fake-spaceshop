@@ -15,7 +15,7 @@ const {User, Product, Order} = require('../server/db/models');
 function seedUsers() {
 	const usersP = new Array(NUM_USERS);
 
-	for (let i = 0; i < NUM_USERS; i++) {
+	for (let i = 1; i < NUM_USERS; i++) {
 		const first = faker.name.firstName();
 		const last = faker.name.lastName();
 		const password = faker.internet.password(8, true);
@@ -24,7 +24,7 @@ function seedUsers() {
 			last,
 			faker.internet.domainName()
 		);
-		// console.log(`${first} ${last} <${email}>: ${password}`);
+
 		usersP[i] = User.create({
 			name: `${first} ${last}`,
 			password,
@@ -33,6 +33,14 @@ function seedUsers() {
 			address: faker.address.streetAddress()
 		});
 	}
+
+	usersP[0] = User.create({
+		name: 'Elon Musk',
+		email: 'elon@musk.com',
+		password: 'iamahuman',
+		address: '1 Elon Drive',
+		imageUrl: '/elon.jpg'
+	});
 
 	return Promise.all(usersP);
 }
