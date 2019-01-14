@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getProduct} from '../store';
+import {getProduct, addToCart} from '../store';
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +19,12 @@ class SingleProduct extends React.Component {
 	componentDidMount() {
 		this.props.getSingleProduct(this.props.match.params.id);
 	}
+
+	handleClick = () => {
+		console.log(this.props);
+		this.props.addSingleProduct(this.props.match.params.id);
+	};
+
 	render() {
 		let product = this.props.singleProduct;
 		const {classes} = this.props;
@@ -30,7 +36,12 @@ class SingleProduct extends React.Component {
 						<img src={product.imageUrl} />
 					</CardContent>
 					<Typography>{product.description}</Typography>
-					<Button>Add to Cart</Button>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={this.handleClick}>
+						Add to Cart
+					</Button>
 				</Card>
 			</div>
 		);
@@ -45,7 +56,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
 	return {
-		getSingleProduct: id => dispatch(getProduct(id))
+		getSingleProduct: id => dispatch(getProduct(id)),
+		addSingleProduct: id => dispatch(addToCart(id))
 	};
 };
 
