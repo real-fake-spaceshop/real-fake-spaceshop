@@ -17,12 +17,12 @@ install:
 before_script:
   - psql -c 'create database "real-fake-spaceshop-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: real-fake-spaceshop
+  api_key:
+    secure: PWZsAhit73xqBwXz1pkQMgwFpxEN5PSA+uTcOam7vcZxolEG0kKWWQjDYqfWxksZ0mUgzvT6MpFxe6WYbqTzN4TzrsD23a4hIjb1h8oVQwXD/Ruf71rxI0V4AGJlkjqu345690HbCbpaZsQzwJZTBeMbZZIgfEqCTKDRTyswSSjBirboGKPLoctXv74Ui9MRL9OPse8zsMykP+UFDon50jT5azXbg+FGSJMLoJNcndiMtyLi4//KqrzyK2jUmu6KkCvmdgQ7qcZYw7tPhEMSTMfzY5UBExvS3/TL0Gu3ztNRFJHjOjOGmvEjpKe6s3Ykx8ZOG5gf51fYCnDwoiP/MaIq/sJoeiPkuH6v1R74yuhGwrWBOyOUagOUPApCNAFNiQaRw1eb6noKcy50rKda0Ch0D1Y23wUySnnjWyPhQbofH3YprR4PkPXL39+at+9cxe8B2DX0Ivurq/5KKjKUbnlTV+OM8cgwe1d5iH4mpHStgnDARrMoLKsRgHHsO4GkikaEgi74OGWT42orSB8z7Bz9aYCqcUGAY/xaEgESp3z2/x8ym/nMCeM7BJacBIk22qQbSh8Pu1n7nxWBHSqJ6EtK5XmcomUgeZPbSnR8IAKjxxSB3CRrmMtsKZor9+tmkCwIpkS0SXIKO6eMct6YjQOA1HiDROGhIbnMXI7Gje4=
