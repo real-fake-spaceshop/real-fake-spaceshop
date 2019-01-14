@@ -5,7 +5,7 @@
  */
 export {default as Navbar} from './navbar';
 export {default as UserHome} from './user-home';
-export {LandingPage} from './landing-page';
+export {default as LandingPage} from './landing-page';
 export {Login} from './auth-form';
 export {default as SignupPage} from './signup-page';
 export {default as AllProducts} from './all-products';
