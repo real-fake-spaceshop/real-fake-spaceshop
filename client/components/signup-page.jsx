@@ -6,7 +6,7 @@ import {Button} from '@material-ui/core';
 import {withStyles, createStyles} from '@material-ui/styles';
 import {signup} from '../store';
 
-const styles = createStyles({
+export const styles = createStyles({
 	container: {
 		display: 'flex',
 		flexDirection: 'column'
@@ -14,7 +14,14 @@ const styles = createStyles({
 	textField: {
 		flexGrow: 0,
 		width: 300,
-		marginTop: 16
+		marginTop: 16,
+		marginLeft: 'auto',
+		marginRight: 'auto'
+	},
+	submit: {
+		marginTop: 16,
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	}
 });
 
@@ -70,18 +77,22 @@ class SignupPage extends React.Component {
 						variant="outlined"
 						className={this.props.classes.textField}
 					/>
+					<Button
+						className={this.props.classes.submit}
+						variant="contained"
+						type="submit"
+						color="primary">
+						Submit
+					</Button>
 				</fieldset>
-				<Button variant="contained" type="submit" color="primary">
-					Submit
-				</Button>
 			</MaterialUIForm>
 		);
 	}
 }
 
 const mapDispatchToProps = dispatch => ({
-	sendSignup: (email, password) => {
-		dispatch(signup(email, password, 'signup'));
+	sendSignup: userData => {
+		dispatch(signup(userData));
 	}
 });
 
