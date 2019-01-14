@@ -50,7 +50,8 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
 	return {
-		singleProduct: state.singleProduct
+		singleProduct: state.singleProduct,
+		cart: state.user.shoppingCart
 	};
 };
 

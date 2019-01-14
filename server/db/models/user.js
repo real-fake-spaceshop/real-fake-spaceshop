@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('../db');
+const order = require('./order');
 
 const defaultPicture = '/images/default_photo.png';
 
@@ -81,5 +82,18 @@ const setSaltAndPassword = user => {
 	}
 };
 
+//beforeUpdate should check for active cart and create one if it isnt present
+//placing an order will remove the cart to trigger the above event
+//ensure cart should create an empty shopping cart
+
+const ensureCart = async user => {
+	if (!user.shoppingCartId) {
+		const cart = await order.create();
+		user.shoppingCartId = cart.id;
+	}
+};
+
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
+User.beforeCreate(ensureCart);
+User.beforeUpdate(ensureCart);
