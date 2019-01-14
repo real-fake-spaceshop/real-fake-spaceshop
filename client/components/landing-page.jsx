@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import {enqueueError} from '../store';
 
 const styles = {
 	logo: {
@@ -14,6 +15,13 @@ const styles = {
 	}
 };
 class LandingPage extends React.Component {
+	componentDidMount() {
+		const {pathname} = this.props.location;
+		if (pathname !== '/') {
+			this.props.enqueueError(`Page ${pathname} does not exist`);
+		}
+	}
+
 	render() {
 		const {classes} = this.props;
 		return (
@@ -41,4 +49,10 @@ class LandingPage extends React.Component {
 	}
 }
 
-export default withStyles(styles)(LandingPage);
+const mapDispatchToProps = dispatch => ({
+	enqueueError: message => dispatch(enqueueError(message))
+});
+
+export default withStyles(styles)(
+	connect(null, mapDispatchToProps)(LandingPage)
+);
