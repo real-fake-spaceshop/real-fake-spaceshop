@@ -19,7 +19,7 @@ const styles = {
 };
 
 export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
-	const products = cart.products;
+	const products = cart && cart.products;
 	const increaseSafe = product =>
 		typeof increase === 'function' && increase(product);
 	const decreaseSafe = product =>
@@ -42,7 +42,9 @@ export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
 	return (
 		<div>
 			<Typography variant="h4">Shopping Cart</Typography>
-			<ProductList products={products} after={createListActions} />
+			{products && (
+				<ProductList products={products} after={createListActions} />
+			)}
 			<Link to="/checkout">
 				<Button
 					color="primary"

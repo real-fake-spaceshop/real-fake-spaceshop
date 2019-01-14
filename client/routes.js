@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-	Login,
 	SignupPage,
 	UserHome,
 	LandingPage,
@@ -25,6 +24,13 @@ class Routes extends Component {
 
 	render() {
 		const {isLoggedIn} = this.props;
+
+		console.log('LoginPage', LoginPage);
+		console.log('SignupPage', SignupPage);
+		console.log('SingleProduct', SingleProduct);
+		console.log('AllProducts', AllProducts);
+		console.log('ShoppingCart', ShoppingCart);
+		console.log('UserHome', UserHome);
 
 		return (
 			<Switch>
