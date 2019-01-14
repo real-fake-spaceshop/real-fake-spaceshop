@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from '../history';
 
 //Action Types
 
@@ -25,9 +26,12 @@ export const getProduct = id => {
 
 export const addToCart = (orderId, productId) => {
 	return async dispatch => {
-		const response = await axios.put(`/api/orders/${orderId}/${productId}`);
+		const response = await axios.put(
+			`/api/orders/${orderId}/${productId}?quantity=1`
+		);
 		const action = addProduct(response.data);
 		dispatch(action);
+		history.push('/cart');
 	};
 };
 

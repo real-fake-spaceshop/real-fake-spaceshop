@@ -88,12 +88,28 @@ const setSaltAndPassword = user => {
 
 const ensureCart = async user => {
 	if (!user.shoppingCartId) {
-		const cart = await order.create();
+		const cart = await order.create({
+			ownerId: user.id
+		});
 		user.shoppingCartId = cart.id;
 	}
+};
+
+const fixOwner = user => {
+	return order.update(
+		{
+			ownerId: user.id
+		},
+		{
+			where: {
+				id: user.shoppingCartId
+			}
+		}
+	);
 };
 
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
 User.beforeCreate(ensureCart);
+User.afterCreate(fixOwner);
 User.beforeUpdate(ensureCart);
