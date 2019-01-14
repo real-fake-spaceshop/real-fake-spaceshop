@@ -8,7 +8,6 @@ import App from './app';
 import purple from '@material-ui/core/colors/purple';
 import yellow from '@material-ui/core/colors/yellow';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {SnackbarProvider} from 'notistack';
 
 //this creates the theme used for the theme provider
 const theme = createMuiTheme({
@@ -28,11 +27,9 @@ import './socket';
 ReactDOM.render(
 	<MuiThemeProvider theme={theme}>
 		<Provider store={store}>
-			<SnackbarProvider maxSnack={5}>
-				<Router history={history}>
-					<App />
-				</Router>
-			</SnackbarProvider>
+			<Router history={history}>
+				<App />
+			</Router>
 		</Provider>
 	</MuiThemeProvider>,
 	document.getElementById('app')
