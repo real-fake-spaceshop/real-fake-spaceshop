@@ -2,7 +2,7 @@ import {expect} from 'chai';
 
 import reducer, {dismissSnack, enqueueSnack} from './snacks';
 
-describe.only('snack state', () => {
+describe('snack state', () => {
 	describe('action creators', () => {
 		describe('enqueueSnack', () => {
 			it('creates a valid action', () => {

@@ -4,7 +4,7 @@ import {withSnackbar} from 'notistack';
 
 import {dismissSnack} from '../store';
 
-class Notifier extends React.Component {
+export class Notifier extends React.Component {
 	displayed = [];
 
 	storeDisplayed = id => {
