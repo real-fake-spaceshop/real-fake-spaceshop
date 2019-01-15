@@ -71,9 +71,6 @@ class CustomerInfo extends React.Component {
 						<Button variant="contained" type="submit" color="primary">
 							Purchase
 						</Button>
-						<Typography color="error" variant="body2" align="center">
-							{this.props.error}
-						</Typography>
 					</MaterialUIForm>
 				</Card>
 			</div>
@@ -82,7 +79,6 @@ class CustomerInfo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	error: state.stripe.error,
 	name: state.user.name,
 	address: state.user.address
 });

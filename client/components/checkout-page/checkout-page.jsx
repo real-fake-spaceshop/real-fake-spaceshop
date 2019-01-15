@@ -25,12 +25,20 @@ class CheckoutPage extends React.Component {
 						<CustomerInfo onSubmit={this.processCheckout} />
 					</Elements>
 				</StripeProvider>
+				<Typography color="error" variant="body2" align="center">
+					{this.props.error}
+				</Typography>
+				<Typography color="textPrimary" variant="body2" align="center">
+					{this.props.status}
+				</Typography>
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
+	error: state.stripe.error,
+	status: state.stripe.response,
 	products: state.user?.shoppingCart?.products
 });
 

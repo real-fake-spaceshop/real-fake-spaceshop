@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {enqueueError} from './snacks';
+import {enqueueError, enqueueSnack} from './snacks';
+import history from '../history';
 
 /**
  * ACTION TYPES
@@ -31,7 +32,9 @@ export const submitCharge = token => async dispatch => {
 		});
 		if (res.status === 200) {
 			console.log('Purchase complete');
-			dispatch(setStripeResponse(res.data));
+			dispatch(setStripeResponse(res.data.status));
+			dispatch(enqueueSnack({message: 'Order submitted successfully!'}));
+			history.push(`/orders/${res.data.order.id}`);
 		}
 	} catch (error) {
 		dispatch(setStripeError(error.message || error));

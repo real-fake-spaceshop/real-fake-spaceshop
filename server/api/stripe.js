@@ -6,15 +6,20 @@ const stripe = require('stripe')(
 );
 
 router.post('/charge', async (req, res, next) => {
+	const total = req.user.shoppingCart.products.reduce(
+		(t, p) => t + p.price * p.order_line_item.quantity,
+		0
+	);
+
 	try {
 		const {status} = await stripe.charges.create({
-			amount: 2000,
+			amount: total,
 			currency: 'usd',
-			description: 'An Example charge',
+			description: `Real Fake Spaceshop Order#${req.user.shoppingCartId}`,
 			source: req.body.token
 		});
 
-		res.json({status});
+		res.json({status, order: req.user.shoppingCart});
 	} catch (err) {
 		next(err);
 	}
