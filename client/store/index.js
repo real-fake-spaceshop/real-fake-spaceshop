@@ -6,12 +6,14 @@ import user from './user';
 import singleProduct from './singleProduct';
 import allProducts from './allProducts';
 import snacks from './snacks';
+import stripe from './stripe';
 
 const reducer = combineReducers({
 	user: user,
 	singleProduct: singleProduct,
 	allProducts: allProducts,
-	snacks: snacks
+	snacks: snacks,
+	stripe: stripe
 });
 const middleware = composeWithDevTools(
 	applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -23,3 +25,4 @@ export * from './user';
 export * from './singleProduct';
 export * from './allProducts';
 export * from './snacks';
+export * from './stripe';

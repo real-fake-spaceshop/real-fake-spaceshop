@@ -6,6 +6,7 @@ import {logout} from '../store';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Badge from '@material-ui/core/Badge';
 import {withStyles} from '@material-ui/core/styles';
 
 const styles = {
@@ -26,7 +27,7 @@ const styles = {
 	}
 };
 
-const Navbar = ({handleClick, isLoggedIn, classes}) => (
+const Navbar = ({handleClick, isLoggedIn, classes, cartCount}) => (
 	<div>
 		<AppBar position="static">
 			<Toolbar className={classes.root}>
@@ -71,9 +72,14 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
 					</React.Fragment>
 				)}
 				<div className={classes.navItem}>
-					<Link to="/cart">
-						<img id="nav-rocket" src="/images/cart.png" />
-					</Link>
+					<Badge
+						color="secondary"
+						invisible={!cartCount}
+						badgeContent={cartCount}>
+						<Link to="/cart">
+							<img id="nav-rocket" src="/images/cart.png" />
+						</Link>
+					</Badge>
 				</div>
 			</Toolbar>
 		</AppBar>
@@ -83,11 +89,10 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-	return {
-		isLoggedIn: !!state.user.id
-	};
-};
+const mapState = state => ({
+	isLoggedIn: !!state.user.id,
+	cartCount: state?.user?.shoppingCart?.products?.length || 0
+});
 
 const mapDispatch = dispatch => {
 	return {

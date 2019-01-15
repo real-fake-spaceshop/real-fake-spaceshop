@@ -8,11 +8,12 @@ import {
 	LandingPage,
 	AllProducts,
 	SingleProduct,
-	LoginPage
+	LoginPage,
+	ShoppingCart,
+	CheckoutPage
 } from './components';
 
 import {me} from './store';
-import ShoppingCart from './components/shopping-cart';
 
 /**
  * COMPONENT
@@ -25,13 +26,6 @@ class Routes extends Component {
 	render() {
 		const {isLoggedIn} = this.props;
 
-		console.log('LoginPage', LoginPage);
-		console.log('SignupPage', SignupPage);
-		console.log('SingleProduct', SingleProduct);
-		console.log('AllProducts', AllProducts);
-		console.log('ShoppingCart', ShoppingCart);
-		console.log('UserHome', UserHome);
-
 		return (
 			<Switch>
 				{/* Routes placed here are available to all visitors */}
@@ -39,7 +33,8 @@ class Routes extends Component {
 				<Route path="/signup" component={SignupPage} />
 				<Route path="/catalogue/:id" component={SingleProduct} />
 				<Route path="/catalogue" component={AllProducts} />
-				<Route path="/cart" component={ShoppingCart} key="cart" />
+				<Route path="/cart" component={ShoppingCart} />
+				<Route path="/checkout" component={CheckoutPage} />
 				{isLoggedIn && [
 					/* Routes placed here are only available after logging in */
 					<Route path="/home" component={UserHome} key="home" />
