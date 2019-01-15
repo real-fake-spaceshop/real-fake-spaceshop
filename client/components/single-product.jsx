@@ -10,8 +10,18 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
 	card: {
-		maxWidth: 500,
-		marginTop: 50
+		maxWidth: 1000,
+		marginTop: 50,
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		textAlign: 'center'
+	},
+	button: {
+		margin: '20px',
+		marginTop: '10px'
+	},
+	desc: {
+		margin: '10px'
 	}
 };
 
@@ -33,17 +43,20 @@ class SingleProduct extends React.Component {
 		return (
 			<div>
 				<Card className={classes.card}>
-					<CardHeader title={product.name} subheader={'$ ' + product.price} />
 					<CardContent>
+						<CardHeader title={product.name} subheader={'$ ' + product.price} />
 						<img src={product.imageUrl} />
+						<Typography className={classes.desc}>
+							{product.description}
+						</Typography>
+						<Button
+							className={classes.button}
+							variant="contained"
+							color="primary"
+							onClick={this.handleClick}>
+							Add to Cart
+						</Button>
 					</CardContent>
-					<Typography>{product.description}</Typography>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={this.handleClick}>
-						Add to Cart
-					</Button>
 				</Card>
 			</div>
 		);
