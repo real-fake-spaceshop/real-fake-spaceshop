@@ -8,14 +8,18 @@ const defaultPicture = '/images/default_photo.png';
 const User = db.define('user', {
 	name: {
 		type: Sequelize.STRING,
-		allowNull: false
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
 	},
 	email: {
 		type: Sequelize.STRING,
 		unique: true,
 		allowNull: false,
 		validate: {
-			isEmail: true
+			isEmail: true,
+			notEmpty: true
 		}
 	},
 	password: {
@@ -44,7 +48,10 @@ const User = db.define('user', {
 	},
 	address: {
 		type: Sequelize.STRING,
-		allowNull: false
+		allowNull: false,
+		validate: {
+			notEmpty: true
+		}
 	}
 });
 
