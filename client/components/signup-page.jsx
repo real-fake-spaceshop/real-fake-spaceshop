@@ -9,7 +9,8 @@ import {signup} from '../store';
 export const styles = createStyles({
 	container: {
 		display: 'flex',
-		flexDirection: 'column'
+		flexDirection: 'column',
+		marginTop: 30
 	},
 	textField: {
 		flexGrow: 0,
