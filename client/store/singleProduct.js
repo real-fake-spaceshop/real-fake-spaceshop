@@ -29,6 +29,7 @@ export const addToCart = (orderId, productId) => {
 		const response = await axios.put(
 			`/api/orders/${orderId}/${productId}?quantity=1`
 		);
+		// OB/JL: can specify query string in object format as `params`, `axios.get('/whatever', {params: {foo: 5}})` would make GET /whatever?foo=5
 		const action = addProduct(response.data);
 		dispatch(action);
 		history.push('/cart');

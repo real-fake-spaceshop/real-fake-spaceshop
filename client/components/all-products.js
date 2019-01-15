@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getAllProducts} from '../store';
 import {withStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+// OB/JL: unused variables up here
 import Paper from '@material-ui/core/Paper';
 import lifecycle from 'react-pure-lifecycle';
 import ListItemText from '@material-ui/core/ListItemText';

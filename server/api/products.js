@@ -24,6 +24,7 @@ router.get('/:productId', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+	// OB/JL: access control (delete this?)
 	try {
 		const newProduct = await Product.create(req.body);
 		res.json(newProduct);

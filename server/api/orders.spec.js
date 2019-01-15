@@ -51,6 +51,7 @@ describe('Order API routes', () => {
 				.expect(200)
 				.end(function(err, res) {
 					if (err || !res.ok) {
+						// OB/JL: dead code
 						// console.error(err);
 						return done(err);
 					} else {
