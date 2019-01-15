@@ -7,13 +7,12 @@ import CardContent from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import {enqueueError} from '../store';
+import styles from '../styles';
 
-const styles = {
-	logo: {
-		height: 500,
-		width: 'auto'
-	}
-};
+//style overrides
+
+styles.card.maxWidth = 700;
+
 class LandingPage extends React.Component {
 	componentDidMount() {
 		const {pathname} = this.props.location;
@@ -26,8 +25,14 @@ class LandingPage extends React.Component {
 		const {classes} = this.props;
 		return (
 			<div>
-				<Card>
-					<CardHeader title="Real Fake Spaceships!" />
+				<Card className={classes.card}>
+					<CardHeader
+						classes={{
+							title: classes.title,
+							subheader: classes.subheader
+						}}
+						title="Real Fake Spaceships!"
+					/>
 					<CardContent>
 						<img
 							src="/images/default_ship_transparent.png"
@@ -35,13 +40,28 @@ class LandingPage extends React.Component {
 						/>
 					</CardContent>
 					<Link to="/login">
-						<Button>Login</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}>
+							Login
+						</Button>
 					</Link>
 					<Link to="/signup">
-						<Button>Sign Up</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}>
+							Sign Up
+						</Button>
 					</Link>
 					<Link to="/catalogue">
-						<Button>Available Ships</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}>
+							Available Ships
+						</Button>
 					</Link>
 				</Card>
 			</div>
