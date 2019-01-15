@@ -110,6 +110,8 @@ const fixOwner = user => {
 
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
+
 User.beforeCreate(ensureCart);
-User.afterCreate(fixOwner);
 User.beforeUpdate(ensureCart);
+User.afterCreate(fixOwner);
+User.afterUpdate(fixOwner);
