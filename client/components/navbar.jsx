@@ -12,15 +12,15 @@ import {withStyles} from '@material-ui/core/styles';
 const styles = {
 	root: {
 		display: 'flex',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		textAlign: 'center'
 	},
 	catBut: {
 		flexGrow: 3
 	},
 	logo: {
 		flexGrow: 6,
-		alignItems: 'center',
-		justifyContent: 'center'
+		margin: 'auto'
 	},
 	navItem: {
 		flexGrow: 1
