@@ -74,6 +74,17 @@ class SignupPage extends React.Component {
 	}
 }
 
+// OB/JL: object shorthand for mapDispatchToProps
+/*
+THe followign format is super common
+const mapDispatchToProps = dispatch => ({
+	someMethod: (...args) => dispatch(someActionCreator(...args))
+})
+So react-redux allows you to do this intead
+const mapDispatchToProps = {
+	someMethod: someActionCreator
+};
+*/
 const mapDispatchToProps = dispatch => ({
 	sendSignup: userData => {
 		dispatch(signup(userData));
