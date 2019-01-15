@@ -21,8 +21,10 @@ class SingleProduct extends React.Component {
 	}
 
 	handleClick = () => {
-		console.log(this.props);
-		this.props.addSingleProduct(this.props.match.params.id);
+		this.props.addSingleProduct(
+			this.props.user.shoppingCartId,
+			this.props.singleProduct.id
+		);
 	};
 
 	render() {
@@ -50,14 +52,17 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
 	return {
-		singleProduct: state.singleProduct
+		singleProduct: state.singleProduct,
+		cart: state.user.shoppingCart,
+		user: state.user
 	};
 };
 
 const mapDispatch = dispatch => {
 	return {
 		getSingleProduct: id => dispatch(getProduct(id)),
-		addSingleProduct: id => dispatch(addToCart(id))
+		addSingleProduct: (orderId, productId) =>
+			dispatch(addToCart(orderId, productId))
 	};
 };
 

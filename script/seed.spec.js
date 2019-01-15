@@ -17,15 +17,14 @@ describe('seed script', () => {
 		it('creates at most one unsubmitted order per user', async () => {
 			const unsubmitted = await Order.count({
 				attributes: ['ownerId'],
-				include: [{model: User, as: 'owner'}],
 				where: {submitted: false},
 				group: 'ownerId'
 			});
 
-			for (const user of unsubmitted) {
+			for (const order of unsubmitted) {
 				expect(
-					Number(user.count),
-					`User id:${user.ownerId} to have exactly one unsubmitted order`
+					Number(order.count),
+					`User id:${order.ownerId} to have exactly one unsubmitted order`
 				).to.equal(1);
 			}
 		});

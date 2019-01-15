@@ -40,26 +40,5 @@ describe('Order model', () => {
 
 			expect(products[0].name).to.be.equal('Arwing');
 		});
-
-		it('the order has the proper ownerId', async () => {
-			cody = await User.create({
-				name: 'cody bones',
-				email: 'cody@puppybook.com',
-				password: 'bones',
-				address: '50 Rosebud Ave.'
-			});
-
-			await Order.update(
-				{
-					ownerId: cody.id
-				},
-				{
-					where: {submitted: true}
-				}
-			);
-			const arr = await Order.findAll();
-
-			expect(arr[0].ownerId).to.be.equal(cody.id);
-		});
 	});
 });
