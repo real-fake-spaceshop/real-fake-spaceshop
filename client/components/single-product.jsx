@@ -7,24 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-
-const styles = {
-	card: {
-		maxWidth: 1000,
-		marginTop: 50,
-		marginLeft: 'auto',
-		marginRight: 'auto',
-		textAlign: 'center',
-		backgroundColor: '#757575'
-	},
-	button: {
-		margin: '20px',
-		marginTop: '10px'
-	},
-	desc: {
-		margin: '10px'
-	}
-};
+import styles from '../styles';
 
 class SingleProduct extends React.Component {
 	componentDidMount() {
@@ -45,15 +28,22 @@ class SingleProduct extends React.Component {
 			<div>
 				<Card className={classes.card}>
 					<CardContent>
-						<CardHeader title={product.name} subheader={'$ ' + product.price} />
+						<CardHeader
+							classes={{
+								title: classes.title,
+								subheader: classes.subheader
+							}}
+							title={product.name}
+							subheader={'$' + product.price}
+						/>
 						<img src={product.imageUrl} />
 						<Typography className={classes.desc}>
 							{product.description}
 						</Typography>
 						<Button
-							className={classes.button}
 							variant="contained"
 							color="primary"
+							className={classes.button}
 							onClick={this.handleClick}>
 							Add to Cart
 						</Button>
