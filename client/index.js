@@ -16,7 +16,7 @@ const theme = createMuiTheme({
 			main: purple[700]
 		},
 		secondary: {
-			main: yellow[500]
+			main: yellow[50]
 		}
 	}
 });
