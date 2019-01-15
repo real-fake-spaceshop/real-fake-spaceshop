@@ -14,7 +14,8 @@ const styles = {
 		marginTop: 50,
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		textAlign: 'center'
+		textAlign: 'center',
+		backgroundColor: '#757575'
 	},
 	button: {
 		margin: '20px',
