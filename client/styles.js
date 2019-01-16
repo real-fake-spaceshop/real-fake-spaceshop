@@ -7,6 +7,17 @@ const styles = {
 		textAlign: 'center',
 		backgroundColor: '#80757575'
 	},
+	cart: {
+		maxWidth: 800,
+		marginTop: 50,
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		textAlign: 'center',
+		backgroundColor: '#757575'
+	},
+	checkout: {
+		margin: '15px'
+	},
 	catalogueItem: {
 		display: 'flex',
 		flexDirection: 'column',

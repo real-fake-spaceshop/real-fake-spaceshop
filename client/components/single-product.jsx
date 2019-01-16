@@ -8,6 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import styles from '../styles';
+import history from '../history';
 
 class SingleProduct extends React.Component {
 	componentDidMount() {
@@ -19,12 +20,12 @@ class SingleProduct extends React.Component {
 			p => p.id === this.props.singleProduct.id
 		);
 
-		console.log(existing);
 		this.props.addSingleProduct(
 			this.props.user.shoppingCartId,
 			this.props.singleProduct.id,
 			(existing && existing.order_line_item.quantity + 1) || 1
 		);
+		history.push('/catalogue');
 	};
 
 	render() {
