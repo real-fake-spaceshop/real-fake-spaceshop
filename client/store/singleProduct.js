@@ -1,5 +1,7 @@
 import axios from 'axios';
 import history from '../history';
+import {enqueueError} from './snacks';
+import {me} from './user';
 
 //Action Types
 
@@ -33,6 +35,14 @@ export const addToCart = (orderId, productId, quantity = 1) => {
 		dispatch(action);
 		history.push('/cart');
 	};
+};
+
+export const removeFromCart = (orderId, productId) => async dispatch => {
+	try {
+		await axios.delete(`/api/orders/${orderId}/${productId}`);
+	} catch (err) {
+		dispatch(enqueueError('An error occurred removing item from cart'));
+	}
 };
 
 //Reducer
