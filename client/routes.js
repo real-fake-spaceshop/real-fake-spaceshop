@@ -29,17 +29,22 @@ class Routes extends Component {
 		return (
 			<Switch>
 				{/* Routes placed here are available to all visitors */}
-				<Route path="/login" component={LoginPage} />
-				<Route path="/signup" component={SignupPage} />
-				<Route path="/catalogue/:id" component={SingleProduct} />
-				<Route path="/catalogue" component={AllProducts} />
-				<Route path="/cart" component={ShoppingCart} />
-				<Route path="/checkout" component={CheckoutPage} />
-				{isLoggedIn && [
+				<Route path="/login" render={props => <LoginPage {...props} />} /> />
+				<Route path="/signup" render={props => <SignupPage {...props} />} /> />
+				<Route
+					path="/catalogue/:id"
+					render={props => <SingleProduct {...props} />}
+				/>
+				/>
+				<Route path="/catalogue" render={props => <AllProducts {...props} />} />
+				/>
+				<Route path="/cart" render={props => <ShoppingCart {...props} />} /> />
+				<Route path="/checkout" render={props => <CheckoutPage {...props} />} />
+				/>
+				{isLoggedIn && (
 					/* Routes placed here are only available after logging in */
-					<Route path="/home" component={UserHome} key="home" />
-				]}
-
+					<Route path="/home" render={props => <UserHome {...props} />} />
+				)}
 				{/* Displays our Landing page as a fallback */}
 				<Route path="/" render={props => <LandingPage {...props} />} />
 			</Switch>
