@@ -7,6 +7,13 @@ const styles = {
 		textAlign: 'center',
 		backgroundColor: '#80757575'
 	},
+	catalogueItem: {
+		display: 'flex',
+		flexDirection: 'column',
+		margin: 5,
+		textAlign: 'center',
+		backgroundColor: '#80757575'
+	},
 	solidCard: {
 		maxWidth: 1000,
 		marginTop: 50,
@@ -31,6 +38,11 @@ const styles = {
 		color: '#ffffff',
 		fontSize: 42
 	},
+	catTitle: {
+		color: '#ffffff',
+		fontSize: 42,
+		paddingTop: '15px'
+	},
 	subheader: {
 		color: '#ffffff',
 		fontSize: 24
@@ -39,7 +51,9 @@ const styles = {
 		height: 500,
 		width: 'auto'
 	},
-
+	white: {
+		color: '#ffffff'
+	},
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -62,6 +76,19 @@ const styles = {
 	},
 	input: {
 		color: '#ffffff'
+	},
+	filterBar: {
+		textAlign: 'center',
+		backgroundColor: '#80757575'
+	},
+	filter: {
+		display: 'flex',
+		flexDirection: 'row',
+		margin: 5,
+		textAlign: 'center'
+	},
+	filterChoice: {
+		flexGrow: 1
 	}
 };
 
