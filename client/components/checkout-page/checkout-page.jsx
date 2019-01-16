@@ -20,7 +20,7 @@ class CheckoutPage extends React.Component {
 				<Paper>
 					<ProductsTable products={products} />
 				</Paper>
-				<StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+				<StripeProvider apiKey="pk_test_xEAIPY0Fq1xY9qjiimkF7rFO">
 					<Elements>
 						<CustomerInfo onSubmit={this.processCheckout} />
 					</Elements>

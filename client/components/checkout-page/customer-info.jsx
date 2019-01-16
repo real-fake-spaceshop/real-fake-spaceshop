@@ -16,7 +16,7 @@ const styles = {
 		flexDirection: 'column'
 	},
 	card: {
-		backgroundColor: '#aaaaaa',
+		// backgroundColor: '#aaaaaa',
 		padding: 20
 	}
 };
@@ -26,7 +26,6 @@ class CustomerInfo extends React.Component {
 
 	submit = async values => {
 		const {token} = await this.props.stripe.createToken(values);
-		console.log(token);
 		this.props.submitCharge(token);
 	};
 
@@ -63,7 +62,7 @@ class CustomerInfo extends React.Component {
 							type="text"
 							value={this.state.address}
 							onChange={this.handleChange}
-							name="address_line_1"
+							name="address_line1"
 							variant="outlined"
 							required
 						/>
