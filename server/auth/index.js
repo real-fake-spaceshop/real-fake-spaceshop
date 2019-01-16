@@ -1,10 +1,22 @@
 const router = require('express').Router();
 const User = require('../db/models/user');
+const Order = require('../db/models/order');
+const Product = require('../db/models/product');
+const OrderLineItem = require('../db/models/orderLineItem');
 module.exports = router;
 
 router.post('/login', async (req, res, next) => {
 	try {
-		const user = await User.findOne({where: {email: req.body.email}});
+		const user = await User.findOne({
+			where: {email: req.body.email},
+			include: [
+				{
+					model: Order,
+					as: 'shoppingCart',
+					include: [{model: Product, through: OrderLineItem}]
+				}
+			]
+		});
 		if (!user) {
 			console.log('No such user found:', req.body.email);
 			res.status(401).send('Wrong username and/or password');

@@ -16,7 +16,7 @@ class LoginPage extends React.Component {
 		console.log(this.state);
 		await this.props.sendLogin(email, password);
 		if (this.props.user) {
-			error = this.props.user.error.response.data;
+			error = this.props.user.error?.response?.data;
 		}
 		this.forceUpdate();
 	};
@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
 							name="email"
 							variant="outlined"
 							className={this.props.classes.textField}
-							data-validators="isRequired"
+							data-validators="isRequired, isEmail"
 						/>
 						<TextField
 							label="Password"
