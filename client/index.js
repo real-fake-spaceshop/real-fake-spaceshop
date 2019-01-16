@@ -18,6 +18,10 @@ const theme = createMuiTheme({
 		secondary: {
 			main: yellow[50]
 		}
+	},
+	typography: {
+		useNextVariants: true,
+		fontFamily: []
 	}
 });
 

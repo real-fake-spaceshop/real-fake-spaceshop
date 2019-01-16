@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getProduct, addToCart} from '../store';
+import {getProduct, addToCart, me} from '../store';
 import {withStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -65,8 +65,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
 	return {
 		getSingleProduct: id => dispatch(getProduct(id)),
-		addSingleProduct: (orderId, productId) =>
-			dispatch(addToCart(orderId, productId))
+		addSingleProduct: async (orderId, productId) => {
+			await dispatch(addToCart(orderId, productId));
+			await dispatch(me());
+		}
 	};
 };
 
