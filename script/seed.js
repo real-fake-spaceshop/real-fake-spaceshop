@@ -25,8 +25,6 @@ function seedUsers() {
 			faker.internet.domainName()
 		);
 
-		console.log(`<${email}>: ${password}`);
-
 		usersP[i] = User.create({
 			name: `${first} ${last}`,
 			password,
