@@ -11,12 +11,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ProductList from './product-list';
-
-const styles = {
-	checkout: {
-		float: 'right'
-	}
-};
+import Card from '@material-ui/core/Card';
+import styles from '../styles';
 
 export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
 	const products = cart && cart.products;
@@ -40,7 +36,7 @@ export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
 	);
 
 	return (
-		<div>
+		<Card className={classes.cart}>
 			<Typography variant="h4">Shopping Cart</Typography>
 			{products && (
 				<ProductList products={products} after={createListActions} />
@@ -53,7 +49,7 @@ export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
 					Checkout
 				</Button>
 			</Link>
-		</div>
+		</Card>
 	);
 };
 
