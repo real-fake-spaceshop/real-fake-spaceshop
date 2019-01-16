@@ -6,11 +6,23 @@ import {Button, Card} from '@material-ui/core';
 import {withStyles} from '@material-ui/styles';
 import {login} from '../store';
 import styles from '../styles';
+import Typography from '@material-ui/core/Typography';
+
+let error = '';
 
 class LoginPage extends React.Component {
-	submit = ({email, password}) => {
-		this.props.sendLogin(email, password);
+	submit = async ({email, password}) => {
+		console.log('IN SUBMIT. state is....');
+		console.log(this.state);
+		await this.props.sendLogin(email, password);
+		if (this.props.user) {
+			error = this.props.user.error.response.data;
+		}
+		this.forceUpdate();
 	};
+	componentWillUnmount() {
+		error = '';
+	}
 	render() {
 		return (
 			<Card className={this.props.classes.solidCard}>
@@ -24,7 +36,7 @@ class LoginPage extends React.Component {
 							name="email"
 							variant="outlined"
 							className={this.props.classes.textField}
-							required
+							data-validators="isRequired"
 						/>
 						<TextField
 							label="Password"
@@ -33,8 +45,11 @@ class LoginPage extends React.Component {
 							name="password"
 							variant="outlined"
 							className={this.props.classes.textField}
-							required
+							data-validators="isRequired"
 						/>
+						<Typography color="error" align="center">
+							{error}
+						</Typography>
 						<Button
 							className={this.props.classes.submit}
 							variant="contained"
@@ -49,8 +64,16 @@ class LoginPage extends React.Component {
 	}
 }
 
+const mapState = state => {
+	return {
+		user: state.user
+	};
+};
+
 const mapDispatchToProps = dispatch => ({
 	sendLogin: (email, password) => dispatch(login(email, password))
 });
 
-export default withStyles(styles)(connect(null, mapDispatchToProps)(LoginPage));
+export default withStyles(styles)(
+	connect(mapState, mapDispatchToProps)(LoginPage)
+);
