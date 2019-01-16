@@ -13,23 +13,31 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import ProductList from './product-list';
 import Card from '@material-ui/core/Card';
 import styles from '../styles';
+import {addToCart, removeFromCart, me} from '../store';
 
 export const ShoppingCart = ({cart, increase, decrease, remove, classes}) => {
 	const products = cart && cart.products;
-	const increaseSafe = product =>
-		typeof increase === 'function' && increase(product);
-	const decreaseSafe = product =>
-		typeof decrease === 'function' && decrease(product);
-	const removeSafe = product => typeof remove === 'function' && remove(product);
+	const increaseSafe = (cartId, product) =>
+		typeof increase === 'function' && increase(cartId, product);
+	const decreaseSafe = (cartId, product) =>
+		typeof decrease === 'function' && decrease(cartId, product);
+	const removeSafe = (cartId, product) =>
+		typeof remove === 'function' && remove(cartId, product);
 	const createListActions = product => (
 		<ListItemSecondaryAction>
-			<IconButton aria-label="increase" onClick={() => increaseSafe(product)}>
+			<IconButton
+				aria-label="increase"
+				onClick={() => increaseSafe(cart.id, product)}>
 				<AddIcon />
 			</IconButton>
-			<IconButton aria-label="decrease" onClick={() => decreaseSafe(product)}>
+			<IconButton
+				aria-label="decrease"
+				onClick={() => decreaseSafe(cart.id, product)}>
 				<RemoveIcon />
 			</IconButton>
-			<IconButton aria-label="delete" onClick={() => removeSafe(product)}>
+			<IconButton
+				aria-label="delete"
+				onClick={() => removeSafe(cart.id, product)}>
 				<DeleteIcon />
 			</IconButton>
 		</ListItemSecondaryAction>
@@ -58,9 +66,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	increase: product => console.log(`increasing product id ${product.id}`),
-	decrease: product => console.log(`decreasing product id ${product.id}`),
-	remove: product => console.log(`removing product id ${product.id}`)
+	increase: async (cartId, product) => {
+		await dispatch(
+			addToCart(cartId, product.id, product.order_line_item.quantity + 1)
+		);
+		dispatch(me());
+	},
+	decrease: async (cartId, product) => {
+		await dispatch(
+			addToCart(cartId, product.id, product.order_line_item.quantity - 1)
+		);
+		dispatch(me());
+	},
+	remove: async (cartId, product) => {
+		await dispatch(removeFromCart(cartId, product.id));
+		dispatch(me());
+	}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
