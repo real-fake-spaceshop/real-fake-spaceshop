@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const {Order, User} = require('../db/models');
 module.exports = router;
 
 const stripe = require('stripe')(
@@ -18,6 +19,9 @@ router.post('/charge', async (req, res, next) => {
 			description: `Real Fake Spaceshop Order#${req.user.shoppingCartId}`,
 			source: req.body.token
 		});
+
+		await (await User.findById(req.user.id)).setShoppingCart(null);
+		await Order.update({submitted: true}, {where: {ownerId: req.user.id}});
 
 		res.json({status, order: req.user.shoppingCart});
 	} catch (err) {
