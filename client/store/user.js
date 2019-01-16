@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import {enqueueError} from './snacks';
 
 /**
  * ACTION TYPES
@@ -35,6 +36,7 @@ export const login = (email, password) => async dispatch => {
 	try {
 		res = await axios.post('/auth/login', {email, password});
 	} catch (authError) {
+		dispatch(enqueueError('Invalid Username/Password credentials...'));
 		return dispatch(getUser({error: authError}));
 	}
 
