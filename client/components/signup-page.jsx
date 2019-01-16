@@ -9,7 +9,9 @@ import styles from '../styles';
 
 class SignupPage extends React.Component {
 	submit = values => {
-		this.props.sendSignup(values);
+		if (values.password === values.password2) {
+			this.props.sendSignup(values);
+		}
 	};
 
 	render() {
@@ -24,8 +26,8 @@ class SignupPage extends React.Component {
 							value=""
 							name="name"
 							variant="outlined"
+							data-validators="isRequired,notEmpty"
 							className={this.props.classes.textField}
-							required
 						/>
 						<TextField
 							label="Email"
@@ -42,6 +44,7 @@ class SignupPage extends React.Component {
 							value=""
 							name="password"
 							variant="outlined"
+							data-validators="isRequired,notEmpty"
 							className={this.props.classes.textField}
 						/>
 						<TextField
@@ -50,6 +53,7 @@ class SignupPage extends React.Component {
 							value=""
 							name="password2"
 							variant="outlined"
+							data-validators="isRequired,notEmpty"
 							className={this.props.classes.textField}
 						/>
 						<TextField
@@ -58,6 +62,7 @@ class SignupPage extends React.Component {
 							value=""
 							name="address"
 							variant="outlined"
+							data-validators="isRequired,notEmpty"
 							className={this.props.classes.textField}
 						/>
 						<Button
