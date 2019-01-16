@@ -14,44 +14,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
-const classes = {
-	root: {
-		flexGrow: 1
-	},
-	paper: {
-		height: 300,
-		width: 250,
-		margin: 8
-	},
-	control: {
-		padding: 2
-	},
-	media: {
-		width: 250
-	},
-	card: {
-		display: 'flex',
-		flexDirection: 'column',
-		margin: 5
-	},
-	flex: {
-		display: 'flex'
-	},
-	group: {
-		margin: `5px 0`
-	},
-	formControl: {
-		margin: 3
-	}
-};
+import Card from '@material-ui/core/Card';
+import styles from '../styles';
 
 let searchFilter = '';
 
 class AllProducts extends React.Component {
 	handleChange = event => {
 		searchFilter = event.target.value;
-		console.log('searchFilter is now ' + searchFilter);
 		this.render();
 		this.forceUpdate();
 	};
@@ -95,69 +65,93 @@ class AllProducts extends React.Component {
 			products = newArray;
 		}
 
-		console.log('IN RENDER');
-		console.log(products);
-
 		return (
 			<div>
-				<FormControl component="fieldset" className={classes.formControl}>
-					<FormLabel component="legend">Filter By:</FormLabel>
-					<RadioGroup
-						aria-label="Filter By:"
-						name="filters"
-						className={classes.group}
-						value={searchFilter}
-						onChange={this.handleChange}>
-						<FormControlLabel
-							value="PriceLowHigh"
-							control={<Radio />}
-							label="Price (Low - High)"
-						/>
-						<FormControlLabel
-							value="PriceHighLow"
-							control={<Radio />}
-							label="Price (High - Low)"
-						/>
-						<FormControlLabel
-							value="AlphabeticalAZ"
-							control={<Radio />}
-							label="Alphabetical (A - Z)"
-						/>
-						<FormControlLabel
-							value="AlphabeticalZA"
-							control={<Radio />}
-							label="Alphabetical (Z - A)"
-						/>
-					</RadioGroup>
-				</FormControl>
+				<Card className={this.props.classes.filterBar}>
+					<FormControl component="fieldset">
+						<FormLabel
+							component="legend"
+							className={this.props.classes.catTitle}>
+							Available Ships
+						</FormLabel>
+						<RadioGroup
+							aria-label="Filter By:"
+							name="filters"
+							value={searchFilter}
+							onChange={this.handleChange}
+							className={this.props.classes.filter}>
+							<FormControlLabel
+								value="PriceLowHigh"
+								control={<Radio />}
+								label="Price (Low - High)"
+								className={this.props.classes.filterChoice}
+								classes={{
+									label: this.props.classes.white
+								}}
+							/>
+							<FormControlLabel
+								value="PriceHighLow"
+								control={<Radio />}
+								label="Price (High - Low)"
+								className={this.props.classes.filterChoice}
+								classes={{
+									label: this.props.classes.white
+								}}
+							/>
+							<FormControlLabel
+								value="AlphabeticalAZ"
+								control={<Radio />}
+								label="Alphabetical (A - Z)"
+								className={this.props.classes.filterChoice}
+								classes={{
+									label: this.props.classes.white
+								}}
+							/>
+							<FormControlLabel
+								value="AlphabeticalZA"
+								control={<Radio />}
+								label="Alphabetical (Z - A)"
+								className={this.props.classes.filterChoice}
+								classes={{
+									label: this.props.classes.white
+								}}
+							/>
+						</RadioGroup>
+					</FormControl>
+				</Card>
 
-				<Grid container className={classes.root} spacing={16}>
+				<Grid container spacing={16}>
 					<Grid item xs={12}>
-						<Grid container className={classes.demo} justify="center">
+						<Grid container justify="center">
 							{products.map(product => (
 								<Grid key={product.id} item>
-									<Link to={`/catalogue/${product.id}`}>
-										<CardActionArea className="classes.card">
-											<CardMedia
-												className={classes.media}
-												image={product.imageUrl}
-												title={product.name}
-											/>
-											<CardContent className="classes.flex">
-												<img src={product.imageUrl} width="250px" />
-												<Typography
-													gutterBottom
-													variant="h5"
-													component="h2"
-													align="center">
-													{product.name}
-												</Typography>
-												<Typography component="p">
-													{'$' + product.price}
-												</Typography>
-											</CardContent>
-										</CardActionArea>
-									</Link>
+									<Card className={this.props.classes.catalogueItem}>
+										<Link to={`/catalogue/${product.id}`}>
+											<CardActionArea className="classes.card">
+												<CardMedia
+													className={this.props.classes.media}
+													image={product.imageUrl}
+													title={product.name}
+												/>
+												<CardContent>
+													<img src={product.imageUrl} width="250px" />
+													<Typography
+														gutterBottom
+														variant="h5"
+														component="h2"
+														align="center"
+														className={this.props.classes.white}>
+														{product.name}
+													</Typography>
+													<Typography
+														component="p"
+														className={this.props.classes.white}>
+														{'$' + product.price}
+													</Typography>
+												</CardContent>
+											</CardActionArea>
+										</Link>
+									</Card>
 								</Grid>
 							))}
 						</Grid>
@@ -180,7 +174,7 @@ const mapDispatch = dispatch => {
 	};
 };
 
-export default connect(mapState, mapDispatch)(withStyles(classes)(AllProducts));
+export default connect(mapState, mapDispatch)(withStyles(styles)(AllProducts));
 
 AllProducts.propTypes = {
 	allProducts: PropTypes.array.isRequired
