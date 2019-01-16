@@ -15,9 +15,15 @@ class SingleProduct extends React.Component {
 	}
 
 	handleClick = () => {
+		const existing = this.props.user.shoppingCart.products.find(
+			p => p.id === this.props.singleProduct.id
+		);
+
+		console.log(existing);
 		this.props.addSingleProduct(
 			this.props.user.shoppingCartId,
-			this.props.singleProduct.id
+			this.props.singleProduct.id,
+			(existing && existing.order_line_item.quantity + 1) || 1
 		);
 	};
 
@@ -65,8 +71,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
 	return {
 		getSingleProduct: id => dispatch(getProduct(id)),
-		addSingleProduct: async (orderId, productId) => {
-			await dispatch(addToCart(orderId, productId));
+		addSingleProduct: async (orderId, productId, quantity) => {
+			await dispatch(addToCart(orderId, productId, quantity));
 			await dispatch(me());
 		}
 	};

@@ -24,10 +24,10 @@ export const getProduct = id => {
 	};
 };
 
-export const addToCart = (orderId, productId) => {
+export const addToCart = (orderId, productId, quantity = 1) => {
 	return async dispatch => {
 		const response = await axios.put(
-			`/api/orders/${orderId}/${productId}?quantity=1`
+			`/api/orders/${orderId}/${productId}?quantity=${quantity}`
 		);
 		const action = addProduct(response.data);
 		dispatch(action);
